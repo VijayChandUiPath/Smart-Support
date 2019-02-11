@@ -1,0 +1,53 @@
+﻿<Window x:Class="SmartSupport.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SmartSupport"
+        mc:Ignorable="d" Height="600" Width="1080" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Loaded="Window_Loaded"
+        Title="SMART SUPPORT">
+    <Grid x:Name="SmartSupportWindow" Background="#FFE1E7E9">
+        <Grid.ColumnDefinitions>
+            <!--Dividing the Window into two columns
+            1. Menu Strips : 1*
+            2. Main Grid   : 20*
+            -->
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="20*" />
+        </Grid.ColumnDefinitions>
+        
+        <!--Menu Strip-->
+        <Grid x:Name="GridMenu" Grid.Column="0" Background="#FF31577E">
+            <Grid.Effect>
+                <DropShadowEffect BlurRadius="2" ShadowDepth="1" Color="#FFAEAEAE"/>
+            </Grid.Effect>
+            <StackPanel>
+                <ListView x:Name="ListViewMenu" Foreground="#FF5C99D6" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="ListViewMenu_SelectionChanged" >
+                    <ListViewItem x:Name="ItemDashboard" Height="60" ToolTip="Dashboard" IsSelected="True">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="ViewDashboard" Height="25" Width="25" Margin="10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="ItemConfigFile" Height="60" ToolTip="Config File">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Pencil" Height="25" Width="25" Margin="10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="Logging" Height="60" ToolTip="Logging">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Build" Height="25" Width="25" Margin="10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                </ListView>
+            </StackPanel>
+        </Grid>
+        
+        <!--Main Grid-->
+        <Grid x:Name="GridMain" Grid.Column="1" Margin="0,0,-0.333,0" >
+            
+        </Grid>
+    </Grid>
+</Window>

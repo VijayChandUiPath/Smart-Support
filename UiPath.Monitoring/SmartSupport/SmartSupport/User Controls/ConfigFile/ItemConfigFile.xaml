@@ -1,0 +1,130 @@
+﻿<UserControl x:Class="SmartSupport.User_Controls.ConfigFile.ItemConfigFile"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SmartSupport.User_Controls.ConfigFile"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+             mc:Ignorable="d" 
+             Loaded="UserControl_Loaded"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid Name="ConfigFile">
+        <Grid  Background="#FFE1E7E9">
+            <Grid.RowDefinitions>
+                <!--Dividing the Window into two rows
+                1. Title        : 2*
+                2. Config Files    : 20*
+                -->
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="20*" />
+            </Grid.RowDefinitions>
+
+            <!-- Title -->
+            <Grid x:Name="Title" Grid.Row="0" Background="#FF5C99D6">
+                <Grid.ColumnDefinitions>
+                    <!--Dividing the Window into two rows
+                        1. Title        : 20*
+                        2. Combobox & Pop-up   : 2*
+                    -->
+                    <ColumnDefinition Width="20*" />
+                    <ColumnDefinition Width="5*" />
+                </Grid.ColumnDefinitions>
+
+                <!--Title-->
+                <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="22">UiPath Monitoring</TextBlock>
+
+                <!--Combobox-->
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <!--Dividing the Window into two rows
+                        1. Combobox : 5*
+                        2. Pop-up   : 2* -->
+                        <ColumnDefinition Width="5*" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!--Combobox-->
+                    <ComboBox Grid.Column="0" x:Name="ComboExe" HorizontalAlignment="Right" SelectionChanged="ComboExe_SelectionChanged"
+                              materialDesign:ComboBoxAssist.ClassicMode="{Binding ElementName=ClassicModeCheckBox, Path=IsChecked}"
+                              Margin="0 8 0 8">
+                    </ComboBox>
+
+                    <!--Pop up-->
+                    <!--<materialDesign:PopupBox Grid.Column="1" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Margin="10">
+                        <StackPanel Width="150">
+                            <Button Content="Run As Admin"/>
+                            <Button Content="Account Change"/>
+                            <Button Content="Help"/>
+                            <Separator/>
+                            <Button Content="Exit"/>
+                        </StackPanel>
+                    </materialDesign:PopupBox>-->
+                </Grid>
+            </Grid>
+
+            <!-- Dashboard -->
+            <Grid x:Name="ConfigFiles" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <!--Dividing the Grid into two columns
+                    1. Config File links : 50*
+                    2. Editor            : 100*  -->
+                    <ColumnDefinition Width="50*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="100*" />
+                </Grid.ColumnDefinitions>
+
+                <!--Config File links-->
+                <Grid Grid.Column="0">
+                    <ListView Name="configFiles" SelectionChanged="configFiles_SelectionChanged">
+                    </ListView>
+                </Grid>
+
+                <!--Editor-->
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <!--Dividing the Grid into two rows
+                        1. Title & Buttons : 1*
+                        2. Editor            : 20*  -->
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="20*" />
+                    </Grid.RowDefinitions>
+                
+                    <!--Title & Buttons-->
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <!--Dividing the Grid into two columns
+                        1. Text     : 10*
+                        2. Button   : 1*  -->
+                            <ColumnDefinition Width="10*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                    
+                        <!--Text-->
+                        <TextBlock Grid.Column="0" Name="title" VerticalAlignment="Top" Margin="0 0 0 0" Style="{StaticResource MaterialDesignButtonTextBlock}">
+                                Config File
+                        </TextBlock>
+                    
+                        <!--Button-->
+                        <ToolBarTray Grid.Column="1">
+                            <ToolBar Style="{DynamicResource MaterialDesignToolBar}">
+                                <Button Name="saveButton" ToolTip="Save" Click="saveButton_Click" Padding="0" VerticalAlignment="Top">
+                                    <materialDesign:PackIcon Kind="ContentSave" />
+                                </Button>
+                            </ToolBar>
+                        </ToolBarTray>
+                    </Grid>
+                    <Grid Grid.Row="1" Name="Editor">
+                        <avalonEdit:TextEditor
+				                Name="textEditor"
+				                FontFamily="Consolas"
+				                FontSize="10pt"
+				                SyntaxHighlighting="XML"
+                                TextChanged="textEditor_TextChanged">
+                        </avalonEdit:TextEditor>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

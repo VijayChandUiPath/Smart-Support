@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="SmartSupport.User_Controls.Error.MainWindowError"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SmartSupport.User_Controls.Error"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <materialDesign:DialogHost x:Name="DialogHost"  CloseOnClickAway="False">
+            <materialDesign:DialogHost.DialogContent>
+                <StackPanel Margin="20">
+                    <TextBlock Style="{StaticResource MaterialDesignButtonTextBlock}" x:Name="Caption" />
+                    <TextBlock x:Name="Error" Text="Something went wrong in the Error Page" />
+                    <Button x:Name="OkButton" Visibility="Collapsed" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignFlatButton}" IsCancel="True" Command="materialDesign:DialogHost.CloseDialogCommand">
+                        OK
+                    </Button>
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
+    </Grid>
+</UserControl>
