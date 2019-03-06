@@ -8,8 +8,9 @@
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
              Loaded="DashboardUserControl_Loaded"
+             Unloaded="UserControl_Unloaded"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid x:Name="DashboardUserControl">
+    <Grid x:Name="DashboardUserControl" LostFocus="lost_focus">
         <Grid>
             <Grid.RowDefinitions>
                 <!--Dividing the Window into two rows
@@ -24,22 +25,28 @@
             <Grid x:Name="Title" Grid.Row="0" Background="#FF5C99D6">
                 <Grid.ColumnDefinitions>
                     <!--Dividing the Window into two rows
-                    1. Title        : 20*
-                    2. Combobox & Pop-up   : 2*
+                    1. Time         : 5*
+                    2. Title        : 20*
+                    3. Combobox & Pop-up   : 2*
                 -->
+                    <ColumnDefinition Width="5*" />
                     <ColumnDefinition Width="20*" />
                     <ColumnDefinition Width="5*" />
                 </Grid.ColumnDefinitions>
 
+                <!--Time-->
+                <Label Name="svcTime" Grid.Column="0"/>
+
                 <!--Title-->
-                <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="22">UiPath Monitoring</TextBlock>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="22">UiPath Monitoring</TextBlock>
 
                 <!--Combobox-->
-                <Grid Grid.Column="1">
+                <Grid Grid.Column="2">
                     <Grid.ColumnDefinitions>
                         <!--Dividing the Window into two rows
                     1. Combobox : 5*
-                    2. Pop-up   : 2* -->
+                    2. Pop-up   : 2* 
+                    3. Time     : 1*   -->
                         <ColumnDefinition Width="5*" />
                         <ColumnDefinition Width="2*" />
                     </Grid.ColumnDefinitions>
@@ -51,15 +58,16 @@
                     </ComboBox>
 
                     <!--Pop up-->
-                    <!--<materialDesign:PopupBox Grid.Column="1" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Margin="10">
+                    <materialDesign:PopupBox Grid.Column="1" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Margin="10">
                     <StackPanel Width="150">
-                        <Button Content="Run As Admin"/>
+                        <Button Content="Settings" Click="Button_Click"/>
                         <Button Content="Account Change"/>
                         <Button Content="Help"/>
                         <Separator/>
                         <Button Content="Exit"/>
                     </StackPanel>
-                </materialDesign:PopupBox>-->
+                </materialDesign:PopupBox>
+                    
                 </Grid>
             </Grid>
 

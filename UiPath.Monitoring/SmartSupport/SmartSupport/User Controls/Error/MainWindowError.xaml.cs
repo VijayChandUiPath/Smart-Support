@@ -27,7 +27,7 @@ namespace SmartSupport.User_Controls.Error
             Caption.Text = caption;
             Error.Text = message;
             if (showButton)
-                OkButton.Visibility = Visibility.Visible;
+                CancelButton.Visibility = Visibility.Visible;
         }
     }
 }

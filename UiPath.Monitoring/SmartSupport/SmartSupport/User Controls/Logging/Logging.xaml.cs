@@ -60,7 +60,7 @@ namespace SmartSupport.User_Controls.Logging
                     t.Start();
 
                     pbw.ShowDialog();
-  
+
                 }
                 catch (Exception ex)
                 {
@@ -836,7 +836,7 @@ namespace SmartSupport.User_Controls.Logging
         {
             #region Get Registry Key
             RegistryKey rk = Registry.CurrentUser.OpenSubKey("Software").OpenSubKey("Microsoft").OpenSubKey("Windows").OpenSubKey("CurrentVersion").OpenSubKey("Internet Settings").OpenSubKey("Zones").OpenSubKey("3");
-            PrintKeys(rk,"");
+            PrintKeys(rk, "");
             #endregion
 
             RegItem.SelectedIndex = 0;
@@ -874,10 +874,10 @@ namespace SmartSupport.User_Controls.Logging
                             dtReg.Rows.Add(s, BitConverter.ToString(rkey.GetValue(s) as byte[]));
                         }
                         else
-                        dtReg.Rows.Add(s, rkey.GetValue(s).ToString());
+                            dtReg.Rows.Add(s, rkey.GetValue(s).ToString());
                     }
-                    
-                    else if (defaultValue=="")
+
+                    else if (defaultValue == "")
                     {
                         //dtReg.Rows.Add();
                     }
@@ -944,9 +944,9 @@ namespace SmartSupport.User_Controls.Logging
                         break;
                     case "Uipath":
                         rk = Registry.LocalMachine.OpenSubKey("Software").OpenSubKey("UiPath").OpenSubKey("UiPath Studio");
-                        
 
-                        if (rk==null)
+
+                        if (rk == null)
                         {
                             rk = Registry.LocalMachine.OpenSubKey("Software").OpenSubKey("UiPath").OpenSubKey("UiPath Desktop");
                         }
@@ -994,7 +994,7 @@ namespace SmartSupport.User_Controls.Logging
                 versionFolder = "14.0";
             }
             else
-            versionFolder = "16.0";
+                versionFolder = "16.0";
 
             return versionFolder;
 
@@ -1107,7 +1107,7 @@ namespace SmartSupport.User_Controls.Logging
                 }
                 string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                 File.WriteAllText(path + "\\EventViewerLogs.csv", sb.ToString());
-                ErrorUSC = ErrorUSC = new MainWindowError("Success..!","Logs has been exported successfully on Desktop." + Environment.NewLine + "File Name : EventViewerLogs.CSV", true);
+                ErrorUSC = ErrorUSC = new MainWindowError("Success..!", "Logs has been exported successfully on Desktop." + Environment.NewLine + "File Name : EventViewerLogs.CSV", true);
                 EventViewerGridMain.Children.Add(ErrorUSC);
             }
             catch (Exception ex)

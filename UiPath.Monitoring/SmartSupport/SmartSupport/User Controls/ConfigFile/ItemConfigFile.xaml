@@ -45,10 +45,10 @@
                     </Grid.ColumnDefinitions>
 
                     <!--Combobox-->
-                    <ComboBox Grid.Column="0" x:Name="ComboExe" HorizontalAlignment="Right" SelectionChanged="ComboExe_SelectionChanged"
+                    <!--<ComboBox Grid.Column="0" x:Name="ComboExe" HorizontalAlignment="Right" SelectionChanged="ComboExe_SelectionChanged"
                               materialDesign:ComboBoxAssist.ClassicMode="{Binding ElementName=ClassicModeCheckBox, Path=IsChecked}"
                               Margin="0 8 0 8">
-                    </ComboBox>
+                    </ComboBox>-->
 
                     <!--Pop up-->
                     <!--<materialDesign:PopupBox Grid.Column="1" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Margin="10">

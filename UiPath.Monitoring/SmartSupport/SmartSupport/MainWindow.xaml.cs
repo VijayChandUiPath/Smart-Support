@@ -17,6 +17,10 @@ using SmartSupport.User_Controls.ConfigFile;
 using SmartSupport.User_Controls.Logging;
 using SmartSupport.User_Controls.Error;
 using System.Diagnostics;
+using System.Net.Sockets;
+using System.Windows.Threading;
+using Newtonsoft.Json;
+using Microsoft.AspNet.SignalR.Client;
 
 namespace SmartSupport
 {
@@ -28,6 +32,12 @@ namespace SmartSupport
         UserControl usc = null;
         UserControl ErrorUSC = null;
         int count = 0;
+        public static Socket sender;
+        public static bool connected = false;
+        public static string command = "DoNothing";
+        DispatcherTimer dt_serviceDispatcher;
+        static Service_DashboardSchema dashboardData;
+        public static IHubProxy _hub;
         public MainWindow()
         {
             InitializeComponent();
@@ -40,9 +50,10 @@ namespace SmartSupport
             var firstButton = ((Control)ListViewMenu.Items[0]).Name;
             usc = new ItemDashboard();
             GridMain.Children.Add(usc);
-            
+
             #endregion
         }
+
 
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

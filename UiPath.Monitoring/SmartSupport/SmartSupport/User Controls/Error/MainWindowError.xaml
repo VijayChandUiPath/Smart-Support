@@ -13,8 +13,8 @@
                 <StackPanel Margin="20">
                     <TextBlock Style="{StaticResource MaterialDesignButtonTextBlock}" x:Name="Caption" />
                     <TextBlock x:Name="Error" Text="Something went wrong in the Error Page" />
-                    <Button x:Name="OkButton" Visibility="Collapsed" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignFlatButton}" IsCancel="True" Command="materialDesign:DialogHost.CloseDialogCommand">
-                        OK
+                    <Button x:Name="CancelButton" Visibility="Collapsed" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignFlatButton}" IsCancel="True" Command="materialDesign:DialogHost.CloseDialogCommand">
+                        CANCEL
                     </Button>
                 </StackPanel>
             </materialDesign:DialogHost.DialogContent>
