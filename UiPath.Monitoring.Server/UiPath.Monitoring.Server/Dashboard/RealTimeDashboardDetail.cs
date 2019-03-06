@@ -8,7 +8,7 @@ namespace UiPath.Monitoring.Server
 {
     class RealTimeDashboardDetail
     {
-        public DateTime time;
+        public string time;
         public string processName { get; set; }
         public List<DLLInfo> dllInfo { get; set; }
         public double commitSize { get; set; }

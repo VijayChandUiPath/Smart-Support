@@ -21,7 +21,7 @@ namespace UiPath.Monitoring.Server.Dashboard
             foreach (KeyValuePair<string, DashboardDetails> exe in Program.exeDetailDict)
             {
                 RealTimeDashboardDetail temp_RealTimeDashboardDetail = new RealTimeDashboardDetail();
-                temp_RealTimeDashboardDetail.time = DateTime.Now;
+                temp_RealTimeDashboardDetail.time = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
                 temp_RealTimeDashboardDetail.processName = exe.Value.getProcessName();
                 temp_RealTimeDashboardDetail.dllInfo = exe.Value.getDllInfo();
                 temp_RealTimeDashboardDetail.commitSize = exe.Value.getCommitSize();
@@ -49,7 +49,7 @@ namespace UiPath.Monitoring.Server.Dashboard
 
 
             string jsonData = JsonConvert.SerializeObject(ad);
-
+            Console.WriteLine(ad.systemInfo["System"][0].Property + " : " + ad.systemInfo["System"][0].Value);
             return jsonData;
         }
 

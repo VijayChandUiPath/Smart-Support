@@ -12,6 +12,9 @@ using System.Threading;
 using System.Web.Script.Serialization;
 using System.IO;
 using UiPath.Monitoring.Server.Dashboard;
+using Microsoft.Owin.Hosting;
+using Owin;
+using Microsoft.Owin.Cors;
 
 namespace UiPath.Monitoring.Server
 {
@@ -40,9 +43,18 @@ namespace UiPath.Monitoring.Server
             string ip = "localhost";
             int port = 11000;
 
-            while (true)
+            #region old code
+            //while (true)
+            //{
+            //    StartServer(ip, port); 
+            //}
+            #endregion
+
+            string url = @"http://localhost:8080/";
+            using (WebApp.Start<Startup>(url))
             {
-                StartServer(ip, port); 
+                Console.WriteLine(string.Format("Server running at {0}", url));
+                Console.ReadLine();
             }
 
             // childThread.Abort();
@@ -102,7 +114,7 @@ namespace UiPath.Monitoring.Server
                     string data = null;
                     byte[] bytes = null;
 
-                    while (true)
+                    while (handler.Connected)
                     {
                         bytes = new byte[1024];
                         int bytesRec = 0;
@@ -130,9 +142,10 @@ namespace UiPath.Monitoring.Server
                                 case Commands.Dashboard:
                                     {                                        
                                         string jsonData = getDashboard();
-                                        File.AppendAllText(@"log.txt", jsonData + Environment.NewLine + "=================================");
+                                        File.AppendAllText(@"log.txt", jsonData + Environment.NewLine);
                                         byte[] msg = Encoding.ASCII.GetBytes(jsonData);
                                         handler.Send(msg);
+                                        data = "DoNothing";
                                         Console.WriteLine("Bytes Sent : " + msg.Count());
                                         break;
                                     }
@@ -141,10 +154,59 @@ namespace UiPath.Monitoring.Server
                                 case Commands.ConfigFiles:
                                     {
                                         string jsonData = getAllConfigFiles();
+                                        File.AppendAllText(@"log.txt", jsonData + Environment.NewLine);
                                         byte[] msg = Encoding.ASCII.GetBytes(jsonData);
                                         handler.Send(msg);
                                         Console.WriteLine("Bytes Sent : " + msg.Count());
-                                        command = Commands.DoNothing;
+                                        data = "DoNothing";
+                                        break;
+                                    }
+                                case Commands.Ping:
+                                    {
+                                        byte[] msg = Encoding.ASCII.GetBytes("Pong");
+                                        string jsonData = "Recieved Ping. Sending response : Pong";
+                                        File.AppendAllText(@"log.txt", jsonData + Environment.NewLine);
+                                        handler.Send(msg);
+                                        data = "DoNothing";
+                                        break;
+                                    }
+
+                                case Commands.SaveConfigFile:
+                                    {
+                                        byte[] msg = Encoding.ASCII.GetBytes("ack");
+                                        handler.Send(msg);
+                                        Console.WriteLine("Bytes Sent : " + msg.Count());
+                                        bytes = new byte[1024*1024];
+                                        bytesRec = 0;
+                                        handler.ReceiveTimeout = 5000;
+                                        try
+                                        {
+                                            bytesRec = handler.Receive(bytes);
+
+                                            data = Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                                            ConfigFileDetails temp = JsonConvert.DeserializeObject<ConfigFileDetails>(data);
+                                            bool flag = ConfigFileDetails.CreateFileBackUp(temp.fileName);
+                                            if(flag)
+                                            {
+                                                using (StreamWriter writer = new StreamWriter(temp.fileName, false))
+                                                {
+                                                    writer.Write(temp.fileContent);
+                                                }
+                                            }
+
+                                            msg = Encoding.ASCII.GetBytes("Saved");
+                                            handler.Send(msg);
+                                        }
+                                        catch (SocketException socEx)
+                                        {
+                                            msg = Encoding.ASCII.GetBytes("Time out in receiving the config file");
+                                            handler.Send(msg);
+                                            Console.WriteLine("Time out in receiving the config file : " + socEx.Message);
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            Console.WriteLine(ex.Message);                                            
+                                        }
                                         break;
                                     }
 
@@ -155,6 +217,8 @@ namespace UiPath.Monitoring.Server
 
                                 case Commands.Stop:
                                     {
+                                        listener.Close();
+                                        data = "DoNothing";
                                         handler.Shutdown(SocketShutdown.Both);
                                         handler.Close();
                                         break;
@@ -260,11 +324,11 @@ namespace UiPath.Monitoring.Server
                 List<string> myFiles = (Directory.GetFiles(exe.Value.getExeFolder(), "*.*", SearchOption.AllDirectories).Where(s => ext.Contains(System.IO.Path.GetExtension(s)))).ToList();
                 foreach(string file in myFiles)
                 {
-                    var temp = new Dictionary<string, string> { { file, System.IO.File.ReadAllText(file) } };
+                    //var temp = new Dictionary<string, string> { { file, System.IO.File.ReadAllText(file) } };
                     ls.Add(new ConfigFileDetails()
                     {
-                        processName = exe.Key,
-                        file = temp
+                        fileName = file,
+                        fileContent = System.IO.File.ReadAllText(file)
                     });
                     
                 }
@@ -274,10 +338,23 @@ namespace UiPath.Monitoring.Server
         }
         enum Commands
         {
-            Dashboard ,
-            ConfigFiles,
             DoNothing,
-            Stop
+            Dashboard ,
+            ConfigFiles,  
+            SaveConfigFile,         
+            Ping,
+            Stop            
         }
+
+
+        class Startup
+        {
+            public void Configuration(IAppBuilder app)
+            {
+                app.UseCors(CorsOptions.AllowAll);
+                app.MapSignalR();
+            }
+        }
+
     }
 }
