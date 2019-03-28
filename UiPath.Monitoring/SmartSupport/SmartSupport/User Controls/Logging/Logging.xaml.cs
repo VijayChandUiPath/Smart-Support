@@ -19,6 +19,9 @@ using Microsoft.Win32;
 using System.IO;
 using SmartSupport.User_Controls.Error;
 using System.Threading;
+using System.Configuration;
+using Microsoft.AspNet.SignalR.Client;
+using Newtonsoft.Json;
 
 namespace SmartSupport.User_Controls.Logging
 {
@@ -51,8 +54,10 @@ namespace SmartSupport.User_Controls.Logging
         public Logging()
         {
             InitializeComponent();
+
             if (logs.Count() == 0)
             {
+
                 try
                 {
                     ThreadStart tStart = new ThreadStart(WorkerMethod);
@@ -95,46 +100,63 @@ namespace SmartSupport.User_Controls.Logging
 
         public static IEnumerable<List<string>> GetEVTApplicationLogs()
         {
-            string eventLogName = "Application";
-            string sourceName = "UiPath";
-            string machineName = System.Environment.MachineName;
-
-            EventLog eventLog = new EventLog();
-            eventLog.Log = eventLogName;
-            eventLog.Source = sourceName;
-            eventLog.MachineName = machineName;
-
-            //var result = (from EventLogEntry elog in eventLog.Entries
-            //              where (elog.Source.ToString().Equals("UiPath"))
-            //              orderby elog.TimeGenerated descending
-            //              where (elog.TimeGenerated >= DateTime.Now.AddDays(-30))
-            //select elog).ToList();
-
-            var result = (from EventLogEntry elog in eventLog.Entries
-                          where (elog.TimeGenerated >= DateTime.Now.AddDays(-5))
-                          where (elog.Source.ToString().Equals("UiPath") || elog.Source.ToString().Equals("UiRobotSvc") || elog.Source.ToString().Equals(".NET Runtime") || elog.Source.ToString().Equals("Application Error"))
-                          orderby elog.TimeGenerated descending
-                          select elog).ToList();
-
-
-            evtLogCount = result.Count;
-            List<string> EVTMSGDetails = new List<string>();
-            List<string> EVTSRCDetails = new List<string>();
-            List<string> EVTTimeDetails = new List<string>();
-            List<string> EVTEntryType = new List<string>();
-
-            for (int i = 0; i < evtLogCount; i++)
+            if (MainWindow.connected)
             {
-                // Console.WriteLine();
-                // Console.WriteLine(result[i].Message);
-                EVTMSGDetails.Add(result[i].Message);
-                EVTSRCDetails.Add(result[i].Source);
-                EVTTimeDetails.Add(Convert.ToString(result[i].TimeGenerated));
-                EVTEntryType.Add(Convert.ToString(result[i].EntryType));
-            }
+                var ls = new List<List<string>>();
+                MainWindow._hub.On("ReceiveEVTAppLogData", x => {
+                    File.AppendAllText(@"log.txt", x + Environment.NewLine);
+                    ls = JsonConvert.DeserializeObject<List<List<string>>>(x);
+                });
 
-            //Console.WriteLine(result.Count);
-            return new List<List<string>> { EVTSRCDetails, EVTTimeDetails, EVTEntryType, EVTMSGDetails };
+                MainWindow._hub.Invoke("Server", "EVTAppLog").Wait();
+                MainWindow.command = "EVTAppLog";
+                evtLogCount = ls[0].Count();
+                return ls;
+
+            }
+            else
+            {
+                string eventLogName = "Application";
+                string sourceName = "UiPath";
+                string machineName = System.Environment.MachineName;
+
+                EventLog eventLog = new EventLog();
+                eventLog.Log = eventLogName;
+                eventLog.Source = sourceName;
+                eventLog.MachineName = machineName;
+
+                //var result = (from EventLogEntry elog in eventLog.Entries
+                //              where (elog.Source.ToString().Equals("UiPath"))
+                //              orderby elog.TimeGenerated descending
+                //              where (elog.TimeGenerated >= DateTime.Now.AddDays(-30))
+                //select elog).ToList();
+
+                var result = (from EventLogEntry elog in eventLog.Entries
+                              where (elog.TimeGenerated >= DateTime.Now.AddDays(-5))
+                              where (elog.Source.ToString().Equals("UiPath") || elog.Source.ToString().Equals("UiRobotSvc") || elog.Source.ToString().Equals(".NET Runtime") || elog.Source.ToString().Equals("Application Error"))
+                              orderby elog.TimeGenerated descending
+                              select elog).ToList();
+
+
+                evtLogCount = result.Count;
+                List<string> EVTMSGDetails = new List<string>();
+                List<string> EVTSRCDetails = new List<string>();
+                List<string> EVTTimeDetails = new List<string>();
+                List<string> EVTEntryType = new List<string>();
+
+                for (int i = 0; i < evtLogCount; i++)
+                {
+                    // Console.WriteLine();
+                    // Console.WriteLine(result[i].Message);
+                    EVTMSGDetails.Add(result[i].Message);
+                    EVTSRCDetails.Add(result[i].Source);
+                    EVTTimeDetails.Add(Convert.ToString(result[i].TimeGenerated));
+                    EVTEntryType.Add(Convert.ToString(result[i].EntryType));
+                }
+
+                //Console.WriteLine(result.Count);
+                return new List<List<string>> { EVTSRCDetails, EVTTimeDetails, EVTEntryType, EVTMSGDetails };
+            }
         }
 
         public static IEnumerable<List<string>> GetEVTSecurityLogs()
@@ -590,6 +612,7 @@ namespace SmartSupport.User_Controls.Logging
 
         private void btnEnableTracing_click(object sender, RoutedEventArgs e)
         {
+            KBGrid.Visibility = Visibility.Hidden;
             string path = @"C:\Program Files (x86)\UiPath\Studio";
             if (Directory.Exists(path))
             {
@@ -612,6 +635,7 @@ namespace SmartSupport.User_Controls.Logging
 
         private void btnDisableTracing_click(object sender, RoutedEventArgs e)
         {
+            KBGrid.Visibility = Visibility.Hidden;
             string path = @"C:\Program Files (x86)\UiPath\Studio";
             if (Directory.Exists(path))
             {
@@ -1068,6 +1092,7 @@ namespace SmartSupport.User_Controls.Logging
 
         private void btnDiagTool_click(object sender, RoutedEventArgs e)
         {
+            KBGrid.Visibility = Visibility.Hidden;
             string path = @"C:\Program Files (x86)\UiPath\Studio";
             if (Directory.Exists(path))
             {
@@ -1115,6 +1140,163 @@ namespace SmartSupport.User_Controls.Logging
                 ErrorUSC = new MainWindowError("Error : Error while exporting the logs", ex.Message, true);
                 EventViewerGridMain.Children.Add(ErrorUSC);
             }
+        }
+
+        private void btnKBPatch_click(object sender, RoutedEventArgs e)
+        {
+            string[] knownAffectedKBPatchList = ConfigurationManager.AppSettings["KnownAffectedKBPatchList"].Split(',');
+
+            KBGrid.Visibility = Visibility.Hidden;
+            string command = "wmic qfe list brief /format:texttablewsys > \"C:\\KBPatchList_%date:~4,2%%date:~7,2%%date:~12,2%_%time:~0,2%%time:~3,2%%time:~6,2%.txt\"";
+            //GenerateCMDLogs(command);
+            var proc1 = new ProcessStartInfo();
+            // string anyCommand;
+            proc1.UseShellExecute = true;
+
+            proc1.FileName = "cmd.exe";
+            proc1.Verb = "runas";
+            proc1.Arguments = "/c " + command;
+            proc1.WindowStyle = ProcessWindowStyle.Hidden;
+            Process.Start(proc1);
+
+            var directory = new DirectoryInfo("C:\\");
+
+            string fileName = directory.GetFiles()
+             .OrderByDescending(f => f.LastWriteTime)
+             .First().Name;
+
+            if (fileName.Contains("KBPatchList_"))
+            {
+                DataTable tbl = new DataTable();
+
+
+                for (int col = 0; col < 9; col++)
+                    tbl.Columns.Add(new DataColumn("Column" + (col + 1).ToString()));
+
+
+
+                //DataTable dt = new DataTable();
+                //using (System.IO.TextReader tr = File.OpenText("C:\\" + fileName))
+                //{
+                //    string line;
+                //    while ((line = tr.ReadLine()) != null)
+                //    {
+
+                //        string[] items = line.Trim().Split(',');
+                //        if (dt.Columns.Count == 0)
+                //        {
+                //            // Create the data columns for the data table based on the number of items
+                //            // on the first line of the file
+                //            for (int i = 0; i < items.Length; i++)
+                //                dt.Columns.Add(new DataColumn("Column" + i, typeof(string)));
+                //        }
+                //        dt.Rows.Add(items);
+
+                //    }
+
+                //}
+
+                DataTable table = new DataTable("table_name");
+                table.Columns.Add("Description", typeof(String));
+                table.Columns.Add("HotFixID", typeof(String));
+                table.Columns.Add("InstalledBy", typeof(String));
+                table.Columns.Add("InstalledOn", typeof(String));
+                table.Columns.Add("AffectedKB", typeof(String));
+
+                //start reading the textfile
+                StreamReader reader = new StreamReader("C:\\" + fileName);
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    string[] items = line.Split(new string[] { "  ", "\t", "" }, StringSplitOptions.RemoveEmptyEntries);
+
+
+                    //make sure it has 3 items
+                    if (items.Length <= 5)
+                    {
+                        DataRow row = table.NewRow();
+                        row["Description"] = items[0].Trim();
+                        row["HotFixID"] = items[1].Trim();
+                        row["InstalledBy"] = items[2].Trim();
+                        row["InstalledOn"] = items[3].Trim();
+                        table.Rows.Add(row);
+                    }
+                }
+                reader.Close();
+                reader.Dispose();
+
+
+                //string[] lines = System.IO.File.ReadAllLines("C:\\"+fileName);
+
+                //foreach (string line in lines)
+                //{
+                //    var cols = line.Split(':');
+
+                //    //DataRow dr = tbl.NewRow();
+                //    for (int cIndex = 0; cIndex < lines.Count(); cIndex++)
+                //    {
+                //        tbl.Rows.Add(lines[cIndex]);
+
+                //    }
+
+                //   // tbl.Rows.Add(dr);
+                //}
+
+
+                //txtETLTips.Document.Blocks.Clear();
+                KBGrid.Visibility = Visibility.Visible;
+
+                foreach (string affectedKB in knownAffectedKBPatchList)
+                {
+                    DataRow dr = table.Rows.Cast<DataRow>().Single(row => row["HotFixID"].ToString() == affectedKB); ;
+                    dr["AffectedKB"] = "Affected";
+                }
+
+                //foreach (DataRow dr in table.Rows)
+                //{
+                //    if(dr["HotFixID"].ToString() == "KB4100347" || dr["HotFixID"].ToString() == "KB4343669" || dr["HotFixID"].ToString() == "KB4489868")
+                //    {
+                //        dr["AffectedKB"] = "Affected";
+                //    }
+
+                //}
+                //DataRow dr = table.Rows.Cast<DataRow>().Single(row => row["HotFixID"].ToString() == "KB4100347");
+
+                //foreach (DataRow row in table.Rows)
+                //{
+                //    object[] array = row.ItemArray;
+                //   // for (int i = 0; i < array.Length - 1; i++)
+                //   // {
+                //        txtETLTips.Document.Blocks.Add(new Paragraph(new Run(array[0].ToString() +"\t" + array[1].ToString() + "\t" + array[2].ToString() + "\t" + array[3].ToString())));
+                //        //txtETLTips.Document.Blocks.Add(array[i].ToString());
+                //   // }
+                //    //swExtLogFile.WriteLine(array[i].ToString());
+                //}
+
+                KBGrid.ItemsSource = table.DefaultView;
+
+                txtETLTips.Document.Blocks.Clear();
+                txtETLTips.Document.Blocks.Add(new Paragraph(new Run("KB Patch List has been downloaded" + Environment.NewLine + Environment.NewLine + "File Location : C:\\KBPatchList_xxxx.txt")));
+            }
+        }
+
+        private void btnAffectedKB_Click(object sender, RoutedEventArgs e)
+        {
+            string[] knownAffectedKBPatchList = ConfigurationManager.AppSettings["KnownAffectedKBPatchList"].Split(',');
+            txtETLTips.Document.Blocks.Clear();
+            txtETLTips.Document.Blocks.Add(new Paragraph(new Run("-------------List Of Some Known Affected KB Patches-------------" + Environment.NewLine)));
+            foreach (string affectedKB in knownAffectedKBPatchList)
+            {
+                txtETLTips.Document.Blocks.Add(new Paragraph(new Run(affectedKB)));
+            }
+        }
+
+        private void btnRepairDotNet_click(object sender, RoutedEventArgs e)
+        {
+            KBGrid.Visibility = Visibility.Hidden;
+            System.Diagnostics.Process.Start("https://support.microsoft.com/en-in/help/2698555/microsoft-net-framework-repair-tool-is-available");
+            txtETLTips.Document.Blocks.Clear();
+            txtETLTips.Document.Blocks.Add(new Paragraph(new Run("Installation Instructions" + Environment.NewLine + Environment.NewLine + "Download Microsoft .NET Framework Repair Tool from the website. Run the same once downloaded.")));
         }
 
         #endregion

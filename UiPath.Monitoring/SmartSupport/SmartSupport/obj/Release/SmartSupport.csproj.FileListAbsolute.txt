@@ -139,3 +139,48 @@ C:\Users\Vijay Chand\Desktop\VS projects\Monitoring Tool\UiPath.Monitoring (10)-
 C:\Users\Vijay Chand\Desktop\VS projects\Monitoring Tool\UiPath.Monitoring (10)-Test\UiPath.Monitoring\SmartSupport\SmartSupport\obj\Release\SmartSupport.g.resources
 C:\Users\Vijay Chand\Desktop\VS projects\Monitoring Tool\UiPath.Monitoring (10)-Test\UiPath.Monitoring\SmartSupport\SmartSupport\obj\Release\SmartSupport.Properties.Resources.resources
 C:\Users\Vijay Chand\Desktop\VS projects\Monitoring Tool\UiPath.Monitoring (10)-Test\UiPath.Monitoring\SmartSupport\SmartSupport\obj\Release\SmartSupport.csproj.GenerateResource.Cache
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\bin\Release\SmartSupport.exe.config
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\obj\Release\SmartSupport.exe
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\obj\Release\SmartSupport.pdb
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\bin\Release\SmartSupport.exe
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\bin\Release\SmartSupport.pdb
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\bin\Release\ICSharpCode.AvalonEdit.dll
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\bin\Release\LiveCharts.dll
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\bin\Release\LiveCharts.Wpf.dll
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\bin\Release\MaterialDesignColors.dll
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\bin\Release\MaterialDesignThemes.Wpf.dll
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\bin\Release\Microsoft.AspNet.SignalR.Client.dll
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\bin\Release\Newtonsoft.Json.dll
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\bin\Release\ICSharpCode.AvalonEdit.xml
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\bin\Release\LiveCharts.pdb
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\bin\Release\LiveCharts.xml
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\bin\Release\LiveCharts.Wpf.pdb
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\bin\Release\LiveCharts.Wpf.xml
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\bin\Release\MaterialDesignThemes.Wpf.pdb
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\bin\Release\MaterialDesignThemes.Wpf.xml
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\bin\Release\Microsoft.AspNet.SignalR.Client.pdb
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\bin\Release\Microsoft.AspNet.SignalR.Client.xml
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\bin\Release\Newtonsoft.Json.pdb
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\bin\Release\Newtonsoft.Json.xml
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\obj\Release\SmartSupport.csprojResolveAssemblyReference.cache
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\obj\Release\MainWindow.g.cs
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\obj\Release\User Controls\ConfigFile\ItemConfigFile.g.cs
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\obj\Release\User Controls\ProgressBar\ProgressBarWindow.g.cs
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\obj\Release\User Controls\Settings\Settings.g.cs
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\obj\Release\User Controls\Dashboard\ItemDashboard.g.cs
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\obj\Release\User Controls\Error\MainWindowError.g.cs
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\obj\Release\User Controls\Logging\Logging.g.cs
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\obj\Release\App.g.cs
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\obj\Release\SmartSupport_MarkupCompile.cache
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\obj\Release\SmartSupport_MarkupCompile.lref
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\obj\Release\App.baml
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\obj\Release\MainWindow.baml
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\obj\Release\User Controls\ConfigFile\ItemConfigFile.baml
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\obj\Release\User Controls\ProgressBar\ProgressBarWindow.baml
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\obj\Release\User Controls\Settings\Settings.baml
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\obj\Release\User Controls\Dashboard\ItemDashboard.baml
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\obj\Release\User Controls\Error\MainWindowError.baml
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\obj\Release\User Controls\Logging\Logging.baml
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\obj\Release\SmartSupport.g.resources
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\obj\Release\SmartSupport.Properties.Resources.resources
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\obj\Release\SmartSupport.csproj.GenerateResource.Cache

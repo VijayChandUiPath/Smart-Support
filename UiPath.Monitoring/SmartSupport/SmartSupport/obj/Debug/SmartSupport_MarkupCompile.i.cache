@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Vijay Chand\Desktop\VS projects\Monitoring Tool\UiPath.Monitoring (10)-Test\UiPath.Monitoring\SmartSupport\SmartSupport\obj\Debug\
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\obj\Debug\
 SmartSupport
 none
 false
 DEBUG;TRACE
-C:\Users\Vijay Chand\Desktop\VS projects\Monitoring Tool\UiPath.Monitoring (10)-Test\UiPath.Monitoring\SmartSupport\SmartSupport\App.xaml
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring\SmartSupport\SmartSupport\App.xaml
 7-959770505
 
 19794481943
-22-711290848
+23484161702
 MainWindow.xaml;User Controls\ConfigFile\ItemConfigFile.xaml;User Controls\ProgressBar\ProgressBarWindow.xaml;User Controls\Settings\Settings.xaml;User Controls\Dashboard\ItemDashboard.xaml;User Controls\Error\MainWindowError.xaml;User Controls\Logging\Logging.xaml;
 
-True
+False
 

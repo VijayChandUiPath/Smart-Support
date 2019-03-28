@@ -323,17 +323,18 @@
                 <Grid Name="ETLGrid" Visibility="Hidden" Margin="0,0,0,-0.5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*" />
-                        <RowDefinition Height="1*" />
-                        <RowDefinition Height="3*" />
+                        <RowDefinition Height="0*" />
+                        <RowDefinition Height="0.1*" />
                     </Grid.RowDefinitions>
-                    <Label Name="lblLLT" FontWeight="Medium" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="295,10,0,0">
+
+                    <Label Name="lblLLT" FontWeight="Medium" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="185,40,0,0">
                         Low Level Tracing
                     </Label>
-                    <Label Name="lblDiagT" FontWeight="Medium" FontSize="15" HorizontalAlignment="Right"  VerticalAlignment="Top" Margin="0,10,241,0">
+                    <!--<Label Name="lblDiagT" FontWeight="Medium" FontSize="15" HorizontalAlignment="Right"  VerticalAlignment="Top" Margin="0,10,241,0">
                         Diagnostic Tool
-                    </Label>
+                    </Label>-->
 
-                    <Button Grid.Row="0" Name="btnEnableTracing" Click="btnEnableTracing_click" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Content="Enable  Tracing" Margin="190,30,0,8.5" Grid.RowSpan="2">
+                    <Button Grid.Row="0" Name="btnEnableTracing" Click="btnEnableTracing_click" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Content="Enable  Tracing" Margin="80,-150,0,8.5" Grid.RowSpan="2">
                         <Button.ToolTip>
                             <ToolTip>
                                 <StackPanel>
@@ -342,7 +343,7 @@
                             </ToolTip>
                         </Button.ToolTip>
                     </Button>
-                    <Button Grid.Row="0" Name="btnDisableTracing" Click="btnDisableTracing_click" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Content="Disable  Tracing" IsEnabled="False" Margin="380,30,0,8.5" Grid.RowSpan="2">
+                    <Button Grid.Row="0" Name="btnDisableTracing" Click="btnDisableTracing_click" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Content="Disable  Tracing" IsEnabled="False" Margin="270,-150,0,8.5" Grid.RowSpan="2">
                         <Button.ToolTip>
                             <ToolTip>
                                 <StackPanel>
@@ -351,17 +352,89 @@
                             </ToolTip>
                         </Button.ToolTip>
                     </Button>
-                    <Button Grid.Row="0" Name="btnDiagTool" Click="btnDiagTool_click" Width="150" HorizontalAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center" Content="Diagnostic Logs" Margin="0,30,220,8.5" Grid.RowSpan="2">
-                        <Button.ToolTip>
-                            <ToolTip>
-                                <StackPanel>
-                                    <TextBlock FontStyle="Italic"><Run Text="Click here to Generate Diagnostic Logs"/></TextBlock>
-                                </StackPanel>
-                            </ToolTip>
-                        </Button.ToolTip>
-                    </Button>
-                    <RichTextBox Grid.Row="2" Name="txtETLTips" HorizontalAlignment="Left" VerticalScrollBarVisibility="Auto" Height="200" Margin="0,-80,0,0" />
+                    <StackPanel>
+                        <Label Name="lblDiagT" FontWeight="Medium" FontSize="15" HorizontalAlignment="Right"  VerticalAlignment="Top" Margin="0,15,350,0">
+                            Diagnostic Tool
+                        </Label>
+                        <Button Grid.Row="0" Name="btnDiagTool" Click="btnDiagTool_click" Width="150" HorizontalAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center" Content="Diagnostic Logs" Margin="0,-30,155,0" Grid.RowSpan="1">
+                            <Button.ToolTip>
+                                <ToolTip>
+                                    <StackPanel>
+                                        <TextBlock FontStyle="Italic"><Run Text="Click here to Generate Diagnostic Logs"/></TextBlock>
+                                    </StackPanel>
+                                </ToolTip>
+                            </Button.ToolTip>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel>
+                        <Label Name="lblKBPatch" FontWeight="Medium" FontSize="15" HorizontalAlignment="Right"  VerticalAlignment="Top" Margin="0,90,350,0">
+                            KB Patch Upgrade List
+                        </Label>
+                        <Button Grid.Row="0" Name="btnKBPatch" Click="btnKBPatch_click" Width="150" HorizontalAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center" Content="KB Patches" Margin="0,-30,155,0" Grid.RowSpan="1">
+                            <Button.ToolTip>
+                                <ToolTip>
+                                    <StackPanel>
+                                        <TextBlock FontStyle="Italic"><Run Text="Click here to Generate KB Patches List"/></TextBlock>
+                                    </StackPanel>
+                                </ToolTip>
+                            </Button.ToolTip>
+                        </Button>
+                        <Button Name="btnAffectedKB" Click="btnAffectedKB_Click" Width="20" Height="20" ToolTip="Click here to Show some known affected KB Lists" FlowDirection="RightToLeft" Margin="0,-27,125,0" Padding="0" HorizontalAlignment="Right" VerticalAlignment="Top" >
+                            <materialDesign:PackIcon Height="20" VerticalAlignment="Center" Padding="0" HorizontalAlignment="Center" 
+                                                Kind="WarningOctagon" />
+                        </Button>
+                    </StackPanel>
+                    <StackPanel>
+                        <Label Name="lblRepairDotNet" FontWeight="Medium" FontSize="15" HorizontalAlignment="Right"  VerticalAlignment="Top" Margin="0,165,350,0">
+                            Dot Net Framework Repair Tool
+                        </Label>
+                        <Button Grid.Row="0" Name="btnRepairDotNet" Click="btnRepairDotNet_click" Width="150" HorizontalAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center" Content=".Net Repair" Margin="0,-30,155,0" Grid.RowSpan="1">
+                            <Button.ToolTip>
+                                <ToolTip>
+                                    <StackPanel>
+                                        <TextBlock FontStyle="Italic"><Run Text="Click here to Repair Dot Net framework"/></TextBlock>
+                                    </StackPanel>
+                                </ToolTip>
+                            </Button.ToolTip>
+                        </Button>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <RichTextBox  Name="txtETLTips" HorizontalAlignment="Left" VerticalScrollBarVisibility="Auto" Height="200" Margin="0,220,0,0" />
+                        <DataGrid Visibility="Hidden" Name="KBGrid"  GridLinesVisibility="All" Width="Auto" Height="198" Margin="430,-200,0,0" VerticalGridLinesBrush="LightGray" CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False" CanUserDeleteRows="False"
+                          Cursor="" RowHeight="50" CanUserResizeRows="False" IsReadOnly="True">
+                            <DataGrid.Resources>
+                                <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                                    <Setter Property="Background" Value="LightGray"  />
+                                    <Setter Property="FontWeight" Value="Bold" />
+                                    <Setter Property="Foreground" Value="Black" />
+                                </Style>
+                            </DataGrid.Resources>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding Description}" Header="Description" Width="Auto"/>
+                                <DataGridTextColumn Binding="{Binding HotFixID}" Header="HotFixID" Width="Auto"/>
+                                <DataGridTextColumn Binding="{Binding InstalledBy}" Header="InstalledBy" Width="Auto"/>
+                                <DataGridTextColumn Binding="{Binding InstalledOn}" Header="InstalledOn" Width="Auto"/>
+                                <DataGridTextColumn Binding="{Binding AffectedKB}" Header="" Width="*"/>
+                                <!--<DataGridTemplateColumn  Header=""   Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <materialDesign:PackIcon Name="AffectedKBWarning" Visibility="{Binding check1}" Height="20" VerticalAlignment="Center" Padding="0" HorizontalAlignment="Center" 
+                                                Kind="WarningOctagon" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>-->
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+
+                    <!--<RichTextBox Grid.Row="2" Name="txtETLTips" HorizontalAlignment="Left" VerticalScrollBarVisibility="Auto" Height="200" Margin="0,-80,0,0" />-->
                 </Grid>
+
+
+
             </Grid>
 
 
