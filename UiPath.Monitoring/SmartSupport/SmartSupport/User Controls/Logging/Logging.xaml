@@ -81,7 +81,7 @@
                                 IsChecked="True"  
                                 Click="EVTButton_Click"
                                 Content="Event Viewer Logs" />
-                    <!--<RadioButton
+                    <!--<RadioButton 
                                 Style="{StaticResource MaterialDesignTabRadioButton}"
                                 Margin="4"
                                 IsChecked="False"

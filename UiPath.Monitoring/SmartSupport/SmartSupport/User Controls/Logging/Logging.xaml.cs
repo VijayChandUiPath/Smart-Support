@@ -1179,6 +1179,7 @@ namespace SmartSupport.User_Controls.Logging
 
             if (MainWindow.connected)
             {
+                //
                 string ack = string.Empty;
                 MainWindow._hub.On("ReceiveDIAGTOOLData", x =>
                 {
