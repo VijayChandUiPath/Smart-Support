@@ -7,3 +7,29 @@ C:\Users\Vijay Chand\Desktop\VS projects\Monitoring Tool\Client-Server\UiPath.Mo
 C:\Users\Vijay Chand\Desktop\VS projects\Monitoring Tool\Client-Server\UiPath.Monitoring.Server\UiPath.Monitoring.Server\obj\Release\UiPath.Monitoring.Server.exe
 C:\Users\Vijay Chand\Desktop\VS projects\Monitoring Tool\Client-Server\UiPath.Monitoring.Server\UiPath.Monitoring.Server\obj\Release\UiPath.Monitoring.Server.pdb
 C:\Users\Vijay Chand\Desktop\VS projects\Monitoring Tool\Client-Server\UiPath.Monitoring.Server\UiPath.Monitoring.Server\obj\Release\UiPath.Monitoring.Server.csprojResolveAssemblyReference.cache
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring.Server\UiPath.Monitoring.Server\bin\Release\UiPath.Monitoring.Server.exe.config
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring.Server\UiPath.Monitoring.Server\obj\Release\UiPath.Monitoring.Server.exe
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring.Server\UiPath.Monitoring.Server\obj\Release\UiPath.Monitoring.Server.pdb
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring.Server\UiPath.Monitoring.Server\bin\Release\UiPath.Monitoring.Server.exe
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring.Server\UiPath.Monitoring.Server\bin\Release\UiPath.Monitoring.Server.pdb
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring.Server\UiPath.Monitoring.Server\bin\Release\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring.Server\UiPath.Monitoring.Server\bin\Release\Microsoft.Owin.Cors.dll
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring.Server\UiPath.Monitoring.Server\bin\Release\Microsoft.Owin.Diagnostics.dll
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring.Server\UiPath.Monitoring.Server\bin\Release\Microsoft.Owin.dll
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring.Server\UiPath.Monitoring.Server\bin\Release\Microsoft.Owin.Host.HttpListener.dll
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring.Server\UiPath.Monitoring.Server\bin\Release\Microsoft.Owin.Hosting.dll
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring.Server\UiPath.Monitoring.Server\bin\Release\Microsoft.Owin.Security.dll
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring.Server\UiPath.Monitoring.Server\bin\Release\Newtonsoft.Json.dll
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring.Server\UiPath.Monitoring.Server\bin\Release\Owin.dll
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring.Server\UiPath.Monitoring.Server\bin\Release\System.Web.Cors.dll
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring.Server\UiPath.Monitoring.Server\bin\Release\Microsoft.AspNet.SignalR.Core.pdb
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring.Server\UiPath.Monitoring.Server\bin\Release\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring.Server\UiPath.Monitoring.Server\bin\Release\Microsoft.Owin.xml
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring.Server\UiPath.Monitoring.Server\bin\Release\Microsoft.Owin.Cors.xml
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring.Server\UiPath.Monitoring.Server\bin\Release\Microsoft.Owin.Diagnostics.xml
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring.Server\UiPath.Monitoring.Server\bin\Release\Microsoft.Owin.Host.HttpListener.xml
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring.Server\UiPath.Monitoring.Server\bin\Release\Microsoft.Owin.Hosting.xml
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring.Server\UiPath.Monitoring.Server\bin\Release\Microsoft.Owin.Security.xml
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring.Server\UiPath.Monitoring.Server\bin\Release\Newtonsoft.Json.pdb
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring.Server\UiPath.Monitoring.Server\bin\Release\Newtonsoft.Json.xml
+C:\Users\Vijay Chand\Desktop\VS projects\Git\Smart-Support\UiPath.Monitoring.Server\UiPath.Monitoring.Server\obj\Release\UiPath.Monitoring.Server.csprojResolveAssemblyReference.cache

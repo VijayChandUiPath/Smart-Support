@@ -612,44 +612,102 @@ namespace SmartSupport.User_Controls.Logging
 
         private void btnEnableTracing_click(object sender, RoutedEventArgs e)
         {
-            KBGrid.Visibility = Visibility.Hidden;
-            string path = @"C:\Program Files (x86)\UiPath\Studio";
-            if (Directory.Exists(path))
+            if (MainWindow.connected)
             {
-                string command = "UiRobot.exe --enableLowLevel";
-                GenerateCMDLogs(command);
-                btnDisableTracing.IsEnabled = true;
-                btnEnableTracing.IsEnabled = false;
-                txtETLTips.Document.Blocks.Clear();
-                txtETLTips.Document.Blocks.Add(new Paragraph(new Run("Service and executor verbose tracing enabled." + Environment.NewLine + "Low level driver tracing started." + Environment.NewLine + "Kindly perform the operation..." + Environment.NewLine + Environment.NewLine + Environment.NewLine + "Note: Do not Forget to Disable Tracing once the operation is completed...")));
+                string ack = string.Empty;
+                MainWindow._hub.On("ReceiveENABLEETLData", x => {
+                    File.AppendAllText(@"log.txt", x + Environment.NewLine);
+                    ack  = JsonConvert.DeserializeObject<string>(x);
+                });
 
+                MainWindow._hub.Invoke("Server", "EnableTrace").Wait();
+                MainWindow.command = "EnableTrace";
+                if(ack == "LowLevelEnabled")
+                {
+                    KBGrid.Visibility = Visibility.Hidden;
+                    
+                        btnDisableTracing.IsEnabled = true;
+                        btnEnableTracing.IsEnabled = false;
+                        txtETLTips.Document.Blocks.Clear();
+                        txtETLTips.Document.Blocks.Add(new Paragraph(new Run("Service and executor verbose tracing enabled." + Environment.NewLine + "Low level driver tracing started." + Environment.NewLine + "Kindly perform the operation..." + Environment.NewLine + Environment.NewLine + Environment.NewLine + "Note: Do not Forget to Disable Tracing once the operation is completed...")));
+
+                }
+                else
+                {
+                    ErrorUSC = new MainWindowError("Error!", "Failed to start Low Level tracing in Service", true);
+                    ETLDiagGrid.Children.Add(ErrorUSC);
+                }
             }
+            
             else
             {
-                ErrorUSC = new MainWindowError("Error : Make sure UiPath is installed!", "Make sure UiPath is installed!", true);
-                ETLDiagGrid.Children.Add(ErrorUSC);
-            }
+                KBGrid.Visibility = Visibility.Hidden;
+                string path = @"C:\Program Files (x86)\UiPath\Studio";
+                if (Directory.Exists(path))
+                {
+                    string command = "UiRobot.exe --enableLowLevel";
+                    GenerateCMDLogs(command);
+                    btnDisableTracing.IsEnabled = true;
+                    btnEnableTracing.IsEnabled = false;
+                    txtETLTips.Document.Blocks.Clear();
+                    txtETLTips.Document.Blocks.Add(new Paragraph(new Run("Service and executor verbose tracing enabled." + Environment.NewLine + "Low level driver tracing started." + Environment.NewLine + "Kindly perform the operation..." + Environment.NewLine + Environment.NewLine + Environment.NewLine + "Note: Do not Forget to Disable Tracing once the operation is completed...")));
 
+                }
+                else
+                {
+                    ErrorUSC = new MainWindowError("Error : Make sure UiPath is installed!", "Make sure UiPath is installed!", true);
+                    ETLDiagGrid.Children.Add(ErrorUSC);
+                }
+            }
 
         }
 
         private void btnDisableTracing_click(object sender, RoutedEventArgs e)
         {
-            KBGrid.Visibility = Visibility.Hidden;
-            string path = @"C:\Program Files (x86)\UiPath\Studio";
-            if (Directory.Exists(path))
+            if (MainWindow.connected)
             {
-                string command = "UiRobot.exe --disableLowLevel";
-                GenerateCMDLogs(command);
-                btnDisableTracing.IsEnabled = false;
-                btnEnableTracing.IsEnabled = true;
-                txtETLTips.Document.Blocks.Clear();
-                txtETLTips.Document.Blocks.Add(new Paragraph(new Run("Service and executor verbose tracing disabled." + Environment.NewLine + "Low level driver tracing stopped." + Environment.NewLine + Environment.NewLine + "UiPathTrace-xxxxxxxx.etl file was generated on Desktop.")));
+                string ack = string.Empty;
+                MainWindow._hub.On("ReceiveDISABLEETLData", x =>
+                {
+                    File.AppendAllText(@"log.txt", x + Environment.NewLine);
+                    ack = JsonConvert.DeserializeObject<string>(x);
+                });
+
+                MainWindow._hub.Invoke("Server", "DisableTrace").Wait();
+                MainWindow.command = "DisableTrace";
+                if (ack == "LowLevelDisabled")
+                {
+                    KBGrid.Visibility = Visibility.Hidden;
+                    btnDisableTracing.IsEnabled = false;
+                    btnEnableTracing.IsEnabled = true;
+                    txtETLTips.Document.Blocks.Clear();
+                    txtETLTips.Document.Blocks.Add(new Paragraph(new Run("Service and executor verbose tracing disabled." + Environment.NewLine + "Low level driver tracing stopped." + Environment.NewLine + Environment.NewLine + "UiPathTrace-xxxxxxxx.etl file was generated on Desktop.")));
+
+                }
+                else
+                {
+                    ErrorUSC = new MainWindowError("Error!", "Failed to Stop Low Level tracing in Service", true);
+                    ETLDiagGrid.Children.Add(ErrorUSC);
+                }
             }
             else
             {
-                ErrorUSC = new MainWindowError("Error : Make sure UiPath is installed!", "Make sure UiPath is installed!", true);
-                ETLDiagGrid.Children.Add(ErrorUSC);
+                KBGrid.Visibility = Visibility.Hidden;
+                string path = @"C:\Program Files (x86)\UiPath\Studio";
+                if (Directory.Exists(path))
+                {
+                    string command = "UiRobot.exe --disableLowLevel";
+                    GenerateCMDLogs(command);
+                    btnDisableTracing.IsEnabled = false;
+                    btnEnableTracing.IsEnabled = true;
+                    txtETLTips.Document.Blocks.Clear();
+                    txtETLTips.Document.Blocks.Add(new Paragraph(new Run("Service and executor verbose tracing disabled." + Environment.NewLine + "Low level driver tracing stopped." + Environment.NewLine + Environment.NewLine + "UiPathTrace-xxxxxxxx.etl file was generated on Desktop.")));
+                }
+                else
+                {
+                    ErrorUSC = new MainWindowError("Error : Make sure UiPath is installed!", "Make sure UiPath is installed!", true);
+                    ETLDiagGrid.Children.Add(ErrorUSC);
+                }
             }
         }
 
@@ -690,7 +748,33 @@ namespace SmartSupport.User_Controls.Logging
             ETLGrid.Visibility = Visibility.Hidden;
             RegGrid.Visibility = Visibility.Hidden;
 
-            ReadPrivileges();
+            if(MainWindow.connected)
+            {
+                Dictionary<string, string> ps = new Dictionary<string, string>();
+                DataTable dtGP = new DataTable();
+                dtGP.Columns.Add(new DataColumn("Policy", Type.GetType("System.String")));
+                dtGP.Columns.Add(new DataColumn("SecuritySetting", Type.GetType("System.String")));
+
+                MainWindow._hub.On("ReceiveGroupPolicyData", x => {                    
+                    File.AppendAllText(@"log.txt", x + Environment.NewLine);
+                    ps = JsonConvert.DeserializeObject<Dictionary<string, string>>(x);
+                });
+
+                MainWindow._hub.Invoke("Server", "GroupPolicy").Wait();
+                MainWindow.command = "GroupPolicy";
+
+                foreach (KeyValuePair<string, string> category in ps)
+                {
+                    dtGP.Rows.Add(category.Key, category.Value);
+                }
+                GPDataGrid.ItemsSource = dtGP.DefaultView;
+                btnGPEdit.IsEnabled = false;
+            }
+            else
+            {
+                ReadPrivileges();
+            }
+            
         }
 
 
@@ -1092,25 +1176,56 @@ namespace SmartSupport.User_Controls.Logging
 
         private void btnDiagTool_click(object sender, RoutedEventArgs e)
         {
-            KBGrid.Visibility = Visibility.Hidden;
-            string path = @"C:\Program Files (x86)\UiPath\Studio";
-            if (Directory.Exists(path))
+
+            if (MainWindow.connected)
             {
+                string ack = string.Empty;
+                MainWindow._hub.On("ReceiveDIAGTOOLData", x =>
+                {
+                    File.AppendAllText(@"log.txt", x + Environment.NewLine);
+                    ack = JsonConvert.DeserializeObject<string>(x);
+                });
 
-                string command = "UiPath.DiagTool.exe --file=C:\\logs.zip";
-                GenerateCMDLogs(command);
-                btnDisableTracing.IsEnabled = false;
-                btnEnableTracing.IsEnabled = true;
-                txtETLTips.Document.Blocks.Clear();
-                txtETLTips.Document.Blocks.Add(new Paragraph(new Run("========= UiPath.DiagTool ==========" + Environment.NewLine + Environment.NewLine + "             Generated report: C:\\logs.zip" + Environment.NewLine + Environment.NewLine + "========= UiPath.DiagTool ==========")));
+                MainWindow._hub.Invoke("Server", "DiagnosticLog").Wait();
+                MainWindow.command = "DiagnosticLog";
+                if (ack == "DiagToolSuccess")
+                {
+                    KBGrid.Visibility = Visibility.Hidden;
 
+                    btnDisableTracing.IsEnabled = false;
+                    btnEnableTracing.IsEnabled = true;
+                    txtETLTips.Document.Blocks.Clear();
+                    txtETLTips.Document.Blocks.Add(new Paragraph(new Run("========= UiPath.DiagTool ==========" + Environment.NewLine + Environment.NewLine + "             Generated report: C:\\logs.zip" + Environment.NewLine + Environment.NewLine + "========= UiPath.DiagTool ==========")));
+
+                }
+                else
+                {
+                    ErrorUSC = new MainWindowError("Error!", "Error while launching Diagnostic Tool in Service", true);
+                    ETLDiagGrid.Children.Add(ErrorUSC);
+                }
             }
-            else
-            {
-                ErrorUSC = new MainWindowError("Error : Make sure UiPath is installed!", "Make sure UiPath is installed!", true);
-                ETLDiagGrid.Children.Add(ErrorUSC);
-            }
 
+            else {
+
+                KBGrid.Visibility = Visibility.Hidden;
+                string path = @"C:\Program Files (x86)\UiPath\Studio";
+                if (Directory.Exists(path))
+                {
+
+                    string command = "UiPath.DiagTool.exe --file=C:\\logs.zip";
+                    GenerateCMDLogs(command);
+                    btnDisableTracing.IsEnabled = false;
+                    btnEnableTracing.IsEnabled = true;
+                    txtETLTips.Document.Blocks.Clear();
+                    txtETLTips.Document.Blocks.Add(new Paragraph(new Run("========= UiPath.DiagTool ==========" + Environment.NewLine + Environment.NewLine + "             Generated report: C:\\logs.zip" + Environment.NewLine + Environment.NewLine + "========= UiPath.DiagTool ==========")));
+
+                }
+                else
+                {
+                    ErrorUSC = new MainWindowError("Error : Make sure UiPath is installed!", "Make sure UiPath is installed!", true);
+                    ETLDiagGrid.Children.Add(ErrorUSC);
+                }
+            }
 
         }
 

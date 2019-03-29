@@ -91,6 +91,8 @@
     <Compile Include="Dashboard\DashboardDetails.cs" />
     <Compile Include="Dashboard\GetPerformanceCounterList.cs" />
     <Compile Include="Dashboard\SystemInfo.cs" />
+    <Compile Include="Logging\GroupPolicy.cs" />
+    <Compile Include="Logging\LocalSecurityPolicy.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Dashboard\RealTimeDashboardDetail.cs" />

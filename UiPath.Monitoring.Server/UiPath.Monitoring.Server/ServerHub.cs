@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UiPath.Monitoring.Server.Logging;
 
 namespace UiPath.Monitoring.Server
 {
@@ -134,6 +135,7 @@ namespace UiPath.Monitoring.Server
                 case Commands.EnableTrace:
                     {
                         string path = @"C:\Program Files (x86)\UiPath\Studio";
+                        string ack = string.Empty;
                         if (Directory.Exists(path))
                         {
                             string command1 = "UiRobot.exe --enableLowLevel";
@@ -150,6 +152,7 @@ namespace UiPath.Monitoring.Server
                                 proc1.Arguments = "/c " + command1;
                                 proc1.WindowStyle = ProcessWindowStyle.Hidden;
                                 Process.Start(proc1);
+                                ack = "LowLevelEnabled";
                             }
                             catch (Exception ex)
                             {
@@ -157,11 +160,16 @@ namespace UiPath.Monitoring.Server
 
                             }
                         }
-                            break;
+
+                        string jsonData = JsonConvert.SerializeObject(ack);
+                        Clients.All.ReceiveENABLEETLData(jsonData);
+                        break;
+
                     }
                 case Commands.DisableTrace:
                     {
                         string path = @"C:\Program Files (x86)\UiPath\Studio";
+                        string ack = string.Empty;
                         if (Directory.Exists(path))
                         {
                             string command1 = "UiRobot.exe --disableLowLevel";
@@ -178,13 +186,50 @@ namespace UiPath.Monitoring.Server
                                 proc1.Arguments = "/c " + command1;
                                 proc1.WindowStyle = ProcessWindowStyle.Hidden;
                                 Process.Start(proc1);
+                                ack = "LowLevelDisabled";
                             }
                             catch (Exception ex)
                             {
                                 Console.WriteLine("Error : Make sure UiPath is installed! : " +  ex.Message);
                             }
                         }
-                            break;
+                        string jsonData = JsonConvert.SerializeObject(ack);
+                        Clients.All.ReceiveDISABLEETLData(jsonData);
+                        break;
+                      
+                    }
+
+                case Commands.DiagnosticLog:
+                    {
+                        string path = @"C:\Program Files (x86)\UiPath\Studio";
+                        string ack = string.Empty;
+                        if (Directory.Exists(path))
+                        {
+                            string command1 = "UiPath.DiagTool.exe --file=C:\\logs.zip";
+                            try
+                            {
+                                var proc1 = new ProcessStartInfo();
+                                // string anyCommand;
+                                proc1.UseShellExecute = true;
+
+                                proc1.WorkingDirectory = @"C:\Program Files (x86)\UiPath\Studio";
+
+                                proc1.FileName = "cmd.exe";
+                                proc1.Verb = "runas";
+                                proc1.Arguments = "/c " + command1;
+                                proc1.WindowStyle = ProcessWindowStyle.Hidden;
+                                Process.Start(proc1);
+                                ack = "DiagToolSuccess";
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine("Error : Make sure UiPath is installed! : " + ex.Message);
+                            }
+                        }
+                        string jsonData = JsonConvert.SerializeObject(ack);
+                        Clients.All.ReceiveDIAGTOOLData(jsonData);
+                        break;
+
                     }
                 case Commands.DoNothing:
                     {
@@ -198,6 +243,81 @@ namespace UiPath.Monitoring.Server
                         Clients.All.StopConnection("Command sent to stop connection");
                         break;
                     }
+                case Commands.GroupPolicy:
+                    {
+                        Console.WriteLine("Command received in server : {0}", command);
+                        string[] policyNames = { "Log on as a batch job",
+                                                "Deny Log on as a batch job",
+                                                "Deny log on locally",
+                                                "Deny access to this computer from the network",
+                                                "Deny log on through Remote Desktop Services",
+                                                "Deny log on as a service",
+                                                "Allow Log on locally",
+                                                "Access to this computer from the network",
+                                                "Allow log on through Remote Desktop Services"};
+
+                        Dictionary<string, string> ps = new Dictionary<string, string>();
+                        LsaWrapper LSA = new LsaWrapper("localhost"); 
+                        foreach (string policy in policyNames)
+                        {
+                            string policyName = String.Empty;
+                            switch (policy)
+                            {
+                                case "Log on as a batch job":
+                                    policyName = "SeBatchLogonRight";
+                                    break;
+                                case "Deny Log on as a batch job":
+                                    policyName = "SeDenyBatchLogonRight";
+                                    break;
+                                case "Deny log on locally":
+                                    policyName = "SeDenyInteractiveLogonRight";
+                                    break;
+                                case "Deny access to this computer from the network":
+                                    policyName = "SeDenyNetworkLogonRight";
+                                    break;
+                                case "Deny log on through Remote Desktop Services":
+                                    policyName = "SeDenyRemoteInteractiveLogonRight";
+                                    break;
+                                case "Deny log on as a service":
+                                    policyName = "SeDenyServiceLogonRight";
+                                    break;
+                                case "Allow Log on locally":
+                                    policyName = "SeInteractiveLogonRight";
+                                    break;
+                                case "Access to this computer from the network":
+                                    policyName = "SeNetworkLogonRight";
+                                    break;
+                                case "Allow log on through Remote Desktop Services":
+                                    policyName = "SeRemoteInteractiveLogonRight";
+                                    break;
+                                default: break;
+
+                            }
+
+                            string account = "";
+
+                            List<String> Accounts = LSA.ReadPrivilege(policyName);
+                            foreach (string val in Accounts)
+                            {
+                                account = account + val + ", ";
+                            }
+                            if (!(account == null) && account != "")
+                            {
+                                account = account.Substring(0, account.LastIndexOf(','));
+                            }
+                            if (account == "")
+                            {
+                                account = "--";
+                            }
+
+                            ps.Add(policy, account);
+                        }
+                        string jsonData = JsonConvert.SerializeObject(ps);
+                        Clients.All.ReceiveGroupPolicyData(jsonData);
+                        break;
+                    }
+                    
+
             }
         }
 
@@ -238,7 +358,9 @@ namespace UiPath.Monitoring.Server
             EVTSecLog,
             EnableTrace,
             DisableTrace,
+            DiagnosticLog,
             Ping,
+            GroupPolicy,
             Stop
         }
     }

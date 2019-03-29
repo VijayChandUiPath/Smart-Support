@@ -81,12 +81,12 @@
                                 IsChecked="True"  
                                 Click="EVTButton_Click"
                                 Content="Event Viewer Logs" />
-                    <RadioButton
+                    <!--<RadioButton
                                 Style="{StaticResource MaterialDesignTabRadioButton}"
                                 Margin="4"
                                 IsChecked="False"
                                 Click="Registry_Click"
-                                Content="Registry" />
+                                Content="Registry" />-->
                     <RadioButton
                                 Style="{StaticResource MaterialDesignTabRadioButton}"
                                 Margin="4"
